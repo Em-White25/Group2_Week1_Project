@@ -1,4 +1,4 @@
-/project-name
+```/project-name
 │
 ├── /data
 │   ├── raw/                  # Store the raw, unprocessed data here.
