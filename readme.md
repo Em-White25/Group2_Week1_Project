@@ -10,7 +10,7 @@ PROJECT STRUCTURE
 │   ├── data_cleaning.ipynb
 │   ├── eda.ipynb
 │   ├── model_training.ipynb
-│   └── visualization.ipynb
+│   └── visualization.ipyn
 │
 ├── /src                      # Python scripts for reusable functions.
 │   ├── data_cleaning.py
