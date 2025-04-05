@@ -29,7 +29,7 @@
 │
 ├── /models                   # Store the trained model (if applicable).
 │   └── model.pkl
-
+```
 # Titanic Survival Prediction Analysis
 
 ## Project Overview
