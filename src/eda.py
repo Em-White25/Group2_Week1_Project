@@ -90,8 +90,13 @@ def plot_survival_by_class(df):
     plt.ylabel("Average Survival Rate")
     plt.show()
 
-def plot_survival_by_gender(df):
-    """Plot survival rate by gender."""
+def recreate_sex_column(df):
+    """Recreate the original 'sex' column from one-hot encoded 'sex_female'."""
+    df['sex'] = df['sex_female'].apply(lambda x: 'female' if x == 1 else 'male')
+    return df
+
+def plot_survival_by_recreated_gender(df):
+    """Plot average survival rate by recreated gender column."""
     plt.figure(figsize=(7, 5))
     sns.barplot(x='sex', y='survived', data=df)
     plt.title("Survival Rate by Gender")
@@ -99,26 +104,20 @@ def plot_survival_by_gender(df):
     plt.ylabel("Survival Rate")
     plt.show()
 
-def plot_feature_correlations(df):
-    """Plot heatmap of feature correlations, excluding 'S/N' if present."""
-    numeric_df = df.select_dtypes(include=[np.number])
-    if 'S/N' in numeric_df.columns:
-        numeric_df = numeric_df.drop(columns=['S/N'])
-
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", linewidths=0.5)
-    plt.title("Feature Correlations (Excluding S/N)")
+def plot_key_feature_correlations(df):
+    """Plot correlation matrix of selected features."""
+    eda_features = ['pclass', 'age', 'fare', 'sex_female', 'sex_male', 'survived']
+    eda_df = df[eda_features]
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(eda_df.corr(), annot=True, cmap="coolwarm", linewidths=0.5)
+    plt.title("Correlation Matrix of Key Features")
     plt.show()
 
 def perform_eda(input_path):
     """Run full exploratory data analysis pipeline."""
-    df = load_data(input_path)
+    df = pd.read_csv(input_path)
 
-    display_head(df)
-    check_missing_values(df)
-    display_structure(df)
-    summary_statistics(df)
-    
+    display_basic_info(df)
     plot_age_distribution(df)
     plot_fare_distribution(df)
     plot_fare_boxplot(df)
@@ -128,6 +127,9 @@ def perform_eda(input_path):
     plot_survival_by_class(df)
     plot_survival_by_gender(df)
     plot_feature_correlations(df)
+    df = recreate_sex_column(df)
+    plot_survival_by_recreated_gender(df)
+    plot_key_feature_correlations(df)
 
 if __name__ == "__main__":
     input_file = "../data/processed/titanic_cleaned.csv"
