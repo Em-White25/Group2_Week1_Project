@@ -79,10 +79,27 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
  * Scaling numerical features if necessary also applying encoding columns.
 
 2. ### **Exploratory Data Analysis (EDA):**
-   - **Loading and inspecting data:** Checking missing values, feature distributions, and basic statistics.
-   - **Survival rate analysis:** Examining survival percentages by passenger class, gender, and other features.
-   - **Feature correlations:** Using heatmaps to visualize relationships between numerical variables.
-   - **Visualization of distributions:** Creating bar plots, histograms, and box plots for key features such as Age, Fare, and Pclass.
+   ***Key EDA Steps***
+   * Loaded Cleaned Dataset: Used the processed Cleaned Titanic dataset cleaned by the Data Cleaning team.
+
+   * Inspected Data Structure: Explored the dataset shape, column types, and missing values to ensure data integrity.
+
+   * Visualized Survival by Gender:
+
+   Plotted average survival rate by gender to highlight disparity in survival rates (with females more likely to survive).
+
+   * Generated Correlation Heatmap:
+
+   * Focused on key features: pclass, age, fare, sex_female, sex_male, and survived.
+
+   * Observed moderate positive correlation between sex_female and survived, and negative correlation with pclass.
+
+***Insights***
+   * Gender and Survival: Women had a higher survival rate than men.
+
+   * Passenger Class: Lower class (higher pclass value) correlated with lower survival rates.
+
+   * Fare: Higher fares slightly correlated with higher chances of survival.
 
 4. ### **Model Training:**
    In this project, we used a Random Forest Classifier to predict outcomes based on the dataset. The model was fine-tuned to find the optimal hyperparameters for better performance. The following sections summarize the results and the model's performance.
