@@ -126,10 +126,10 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
 
    * **Confusion Matrix:**
       The confusion matrix shows the number of correct and incorrect predictions:
-      ```
+      
       [[149  34]  
- [ 52  93]]
-      ```
+      [ 52  93]]
+      
          * True Negatives (TN): 149 — The model correctly predicted class '0' (negative cases).
 
          * False Positives (FP): 34 — The model incorrectly predicted class '1' when it was actually class '0'.
@@ -140,7 +140,7 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
    
    * **Classification Report:**
       The classification report provides detailed metrics for both classes (0 and 1). Here's the breakdown:
-      ```
+      
                     precision    recall  f1-score   support
 
            0       0.74      0.81      0.78       183
@@ -149,7 +149,7 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
     accuracy                           0.74       328
    macro avg       0.74      0.73      0.73       328
 weighted avg       0.74      0.74      0.74       328
-      ```
+      
       * Precision: The proportion of positive predictions that were actually correct. For class '0', precision is 0.74, meaning 74% of the predicted class '0' were correct. Similarly, for class '1', it’s 0.73.
 
       * Recall: The proportion of actual positive cases that were correctly identified. For class '0', recall is 0.81, meaning 81% of the actual class '0' were correctly predicted. For class '1', recall is 0.64.
