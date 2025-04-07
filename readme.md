@@ -15,20 +15,17 @@
 │   └── visualization.ipyn
 │
 ├── /src                      # Python scripts for reusable functions.
-│   ├── data_cleaning.py
-│   ├── feature_engineering.py
-│   └── model.py
-│
-├── /reports                  # Final project report, analysis, and documentation.
-│   ├── project_overview.md
-│   ├── data_cleaning_report.md
-│   └── final_report.md
+│   ├── data_processing.py
+│   ├── eda.py
+|   ├── main.py
+|   ├── model.py
+|   ├── pipeline_unittest.py
+|   ├── visualization.py
+│   └── requirements.txt
 │
 ├── /visualizations           # Store the visualizations or dashboard files.
-│   └── visualizations.py
-│
-├── /models                   # Store the trained model (if applicable).
-│   └── model.pkl
+│   └── visualizations.png
+
 ```
 # Titanic Survival Prediction Analysis
 
@@ -82,14 +79,90 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
  * Scaling numerical features if necessary also applying encoding columns.
 
 2. ### **Exploratory Data Analysis (EDA):**
-   - **Loading and inspecting data:** Checking missing values, feature distributions, and basic statistics.
-   - **Survival rate analysis:** Examining survival percentages by passenger class, gender, and other features.
-   - **Feature correlations:** Using heatmaps to visualize relationships between numerical variables.
-   - **Visualization of distributions:** Creating bar plots, histograms, and box plots for key features such as Age, Fare, and Pclass.
+   ***Key EDA Steps***
+   * Loaded Cleaned Dataset: Used the processed Cleaned Titanic dataset cleaned by the Data Cleaning team.
+
+   * Inspected Data Structure: Explored the dataset shape, column types, and missing values to ensure data integrity.
+
+   * Visualized Survival by Gender:
+
+   Plotted average survival rate by gender to highlight disparity in survival rates (with females more likely to survive).
+
+   * Generated Correlation Heatmap:
+
+   * Focused on key features: pclass, age, fare, sex_female, sex_male, and survived.
+
+   * Observed moderate positive correlation between sex_female and survived, and negative correlation with pclass.
+
+***Insights***
+   * Gender and Survival: Women had a higher survival rate than men.
+
+   * Passenger Class: Lower class (higher pclass value) correlated with lower survival rates.
+
+   * Fare: Higher fares slightly correlated with higher chances of survival.
 
 4. ### **Model Training:**
-   - Training machine learning models (e.g., Logistic Regression, Random Forest) to predict survival.
-   - Evaluating model performance using accuracy, precision, recall, and F1-score.
+   In this project, we used a Random Forest Classifier to predict outcomes based on the dataset. The model was fine-tuned to find the optimal hyperparameters for better performance. The following sections summarize the results and the model's performance.
+   * **Best Model Parameters:**
+     The following hyperparameters were determined to be the best for the model after tuning:
+
+      * max_depth: **None** (allows the trees to grow until all leaves are pure)
+
+      * max_features: **'auto'** (uses the square root of the total number of features for each split)
+
+      * min_samples_leaf: **4** (sets the minimum number of samples required to be at a leaf node)
+
+      * min_samples_split: **2** (the minimum number of samples required to split an internal node)
+
+      * n_estimators: **100** (the number of trees in the forest)
+   These parameters were chosen to balance model performance and complexity, optimizing for accuracy and generalization.
+
+   * **Model Performance:**
+      * Best Cross-validation Accuracy:
+   The model achieved a cross-validation accuracy of **79.19%**, which indicates that the model performs well on unseen data during the training process.
+
+      * Accuracy on Test Data:
+   The model achieved an overall accuracy of **73.78%** on the test set, meaning that it correctly predicted **73.78%** of the test cases.
+
+   * **Confusion Matrix:**
+      The confusion matrix shows the number of correct and incorrect predictions:
+      ```
+      [[149  34]  
+ [ 52  93]]
+      ```
+         * True Negatives (TN): 149 — The model correctly predicted class '0' (negative cases).
+
+         * False Positives (FP): 34 — The model incorrectly predicted class '1' when it was actually class '0'.
+
+         * False Negatives (FN): 52 — The model incorrectly predicted class '0' when it was actually class '1'.
+
+         * True Positives (TP): 93 — The model correctly predicted class '1' (positive cases).
+   
+   * **Classification Report:**
+      The classification report provides detailed metrics for both classes (0 and 1). Here's the breakdown:
+      ```
+                    precision    recall  f1-score   support
+
+           0       0.74      0.81      0.78       183
+           1       0.73      0.64      0.68       145
+
+    accuracy                           0.74       328
+   macro avg       0.74      0.73      0.73       328
+weighted avg       0.74      0.74      0.74       328
+      ```
+      * Precision: The proportion of positive predictions that were actually correct. For class '0', precision is 0.74, meaning 74% of the predicted class '0' were correct. Similarly, for class '1', it’s 0.73.
+
+      * Recall: The proportion of actual positive cases that were correctly identified. For class '0', recall is 0.81, meaning 81% of the actual class '0' were correctly predicted. For class '1', recall is 0.64.
+
+      * F1-Score: The harmonic mean of precision and recall, providing a balance between the two. The F1-score for class '0' is 0.78, and for class '1', it's 0.68.
+
+      * Accuracy: The overall correctness of the model, which is 73.78% on the test data.
+
+      * Support: The number of occurrences of each class in the test set (183 for class '0' and 145 for class '1').
+   
+   * **Conclusion:**
+      The Random Forest model performed well with an accuracy of **73.78%**, achieving a good balance between precision, recall, and F1-score, especially for class **'0'** (with a higher recall). The model shows its strength in predicting class **'0'** more accurately, but there is room for improvement in predicting class **'1'**, as indicated by the lower recall for this class.
+      By fine-tuning the model parameters and adjusting for performance on both classes, the model can potentially be enhanced further, for example, by using techniques such as class balancing or experimenting with other machine learning models.
 
 5. ### **Pipeline Automation:**
    - Integrating all steps into an automated script.
@@ -100,7 +173,7 @@ To execute the full pipeline, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Em-White25/Grp2-Wk1-Project.git
+   git clone https://github.com/Em-White25/Group2_Week1_Project.git
    cd titanic-survival-analysis
    ```
 2. Install dependencies:
@@ -113,7 +186,7 @@ To execute the full pipeline, follow these steps:
    ```
 4. Run unit tests to validate functionality:
    ```sh
-   pytest tests/
+   pytest src/pipeline_unittest.py
    ```
 
 ## Deliverables
