@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 
-def load_data(file_path):
-    """Load raw dataset from CSV."""
-    return pd.read_csv(file_path)
+def load_data(path):
+    return pd.read_csv(path)
 
 def remove_duplicates(df):
     """Remove duplicate rows."""
@@ -38,8 +38,13 @@ def round_fare(df):
     df['fare'] = df['fare'].round(2)
     return df
 
-def clean_data(input_path, output_path):
-    df = load_data(input_path)
+def round_age(df):
+    """Round age values to the nearest integer, rounding up values < 1 to 1."""
+    df['age'] = df['age'].apply(lambda x: int(np.ceil(x)) if x < 1 else round(x))
+    return df
+
+def clean_data(df):
+    """Clean the data: remove duplicates, handle missing values, and encode categorical data."""
     df = remove_duplicates(df)
     df = drop_unwanted_columns(df, ['name', 'home.dest', 'cabin', 'ticket', 'sibsp', 'parch', 'boat', 'body'])
     df = encode_gender(df)
@@ -47,10 +52,9 @@ def clean_data(input_path, output_path):
     df = fill_missing_fare(df)
     df = fill_missing_embarked(df)
     df = round_fare(df)
-    df.to_csv(output_path, index=False)
-    print(f"Cleaned data saved to: {output_path}")
+    df = round_age(df)
+    return df
 
-if __name__ == "__main__":
-    input_file = "../data/raw/Titanic dataset.csv"
-    output_file = "../data/processed/titanic_cleaned.csv"
-    clean_data(input_file, output_file)
+def save_cleaned_data(df, path):
+    """Save cleaned data to a CSV file."""
+    df.to_csv(path, index=False)
