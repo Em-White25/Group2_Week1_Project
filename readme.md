@@ -125,30 +125,30 @@ The cleaned dataset has been saved to `data/processed/final_titanic_data.csv` an
    The model achieved an overall accuracy of **73.78%** on the test set, meaning that it correctly predicted **73.78%** of the test cases.
 
    * **Confusion Matrix:**
-      The confusion matrix shows the number of correct and incorrect predictions:
+   The confusion matrix shows the number of correct and incorrect predictions:
       
       [[149  34]  
       [ 52  93]]
       
-         * True Negatives (TN): 149 — The model correctly predicted class '0' (negative cases).
+      * True Negatives (TN): 149 — The model correctly predicted class '0' (negative cases).
 
-         * False Positives (FP): 34 — The model incorrectly predicted class '1' when it was actually class '0'.
+      * False Positives (FP): 34 — The model incorrectly predicted class '1' when it was actually class '0'.
 
-         * False Negatives (FN): 52 — The model incorrectly predicted class '0' when it was actually class '1'.
+      * False Negatives (FN): 52 — The model incorrectly predicted class '0' when it was actually class '1'.
 
-         * True Positives (TP): 93 — The model correctly predicted class '1' (positive cases).
+      * True Positives (TP): 93 — The model correctly predicted class '1' (positive cases).
    
    * **Classification Report:**
       The classification report provides detailed metrics for both classes (0 and 1). Here's the breakdown:
       
-                    precision    recall  f1-score   support
+                                    precision    recall  f1-score   support
 
-           0       0.74      0.81      0.78       183
-           1       0.73      0.64      0.68       145
+                           0       0.74      0.81         0.78          183
+                           1       0.73      0.64         0.68          145
 
-    accuracy                           0.74       328
-   macro avg       0.74      0.73      0.73       328
-weighted avg       0.74      0.74      0.74       328
+                         accuracy                        0.74           328
+                         macro avg 0.74      0.73        0.73           328
+                         weighted avg 0.74   0.74        0.74           328
       
       * Precision: The proportion of positive predictions that were actually correct. For class '0', precision is 0.74, meaning 74% of the predicted class '0' were correct. Similarly, for class '1', it’s 0.73.
 
